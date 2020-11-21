@@ -4,8 +4,12 @@ import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
 import AppContext from '../AppContext'
+// import config from '../config'
+import PropTypes from 'prop-types'
+// import NoteListMain from '../NoteListMain/NoteListMain'
 
 export default function Note(props) {
+  // console.log(props)
   const context = useContext(AppContext)
   const handleClick = (id) => {
     context.deleteNote(id)
@@ -36,4 +40,11 @@ export default function Note(props) {
       </div>
     </div>
   )
+}
+
+Note.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+  modified: PropTypes.string,
+  goHome: PropTypes.func
 }

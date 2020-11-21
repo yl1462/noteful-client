@@ -5,13 +5,14 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import dummyStore from '../dummy-store';
-import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
+// import dummyStore from '../dummy-store';
+// import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
 import AppContext from '../AppContext'
 import config from '../config';
 import AddFolder from '../AddFolder'
 import AddNote from '../AddNote'
+import ErrorBoundary from '../ErrorBoundary'
 
 class App extends Component {
     state = {
@@ -55,7 +56,7 @@ class App extends Component {
     }
 
     renderNavRoutes() {
-        const {notes, folders} = this.state;
+        // const {notes, folders} = this.state;
         return (
             <>
                 {['/', '/folder/:folderId'].map(path => (
@@ -78,7 +79,7 @@ class App extends Component {
     }
 
     renderMainRoutes() {
-        const {notes, folders} = this.state;
+        // const {notes, folders} = this.state;
         return (
             <>
                 {['/', '/folder/:folderId'].map(path => (
@@ -114,20 +115,22 @@ class App extends Component {
             addNote: this.addNote
         }
         return (
-            <AppContext.Provider
-             value={value}
-             >
-            <div className="App">
-                <nav className="App__nav">{this.renderNavRoutes()}</nav>
-                <header className="App__header">
-                    <h1>
-                        <Link to="/">Noteful</Link>{' '}
-                        <FontAwesomeIcon icon="check-double" />
-                    </h1>
-                </header>
-                <main className="App__main">{this.renderMainRoutes()}</main>
-            </div>
-            </AppContext.Provider>
+            <ErrorBoundary>
+                <AppContext.Provider
+                value={value}
+                >
+                <div className="App">
+                    <nav className="App__nav">{this.renderNavRoutes()}</nav>
+                    <header className="App__header">
+                        <h1>
+                            <Link to="/">Noteful</Link>{' '}
+                            <FontAwesomeIcon icon="check-double" />
+                        </h1>
+                    </header>
+                    <main className="App__main">{this.renderMainRoutes()}</main>
+                </div>
+                </AppContext.Provider>
+            </ErrorBoundary>
         );
     }
 }
