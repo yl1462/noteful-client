@@ -22,10 +22,21 @@ class AddFolder extends Component {
             },
             body:JSON.stringify({name:this.state.folder})
         })
-        .then(res => res.json())
-        .then(folder => {
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(err => {
+                    console.log(`Error Message: ${err}`)
+                    throw err
+                })
+            }
+            return res.json()
+        })
+        .then(note => {
             this.context.addFolder(folder)
             this.props.history.push('/')
+        })
+        .catch(err => {
+            this.setState({err})
         })
     }
 
