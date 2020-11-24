@@ -12,6 +12,9 @@ export default function NoteListMain(props) {
   const context = useContext(AppContext)
   const {folderId} = props.match.params
   const notes = getNotesForFolder(context.notes, folderId)
+  const goHome = () => {
+    props.history.push('/folder/' + folderId)
+  }
   return (
     <section className='NoteListMain'>
       <ul>
@@ -21,6 +24,7 @@ export default function NoteListMain(props) {
               id={note.id}
               name={note.name}
               modified={note.modified}
+              goHome={goHome}
             />
           </li>
         )}
