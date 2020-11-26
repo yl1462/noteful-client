@@ -40,8 +40,8 @@ export default function Note(props) {
 }
 
 Note.propTypes = {
-  name: PropTypes.string,
-  id: PropTypes.string,
-  modified: PropTypes.string,
-  goHome: PropTypes.func
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  modified: PropTypes.string.isRequired,
+  goHome: PropTypes.func.isRequired
 }

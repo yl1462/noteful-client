@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AppContext from '../src/AppContext'
+import PropTypes from 'prop-types'
 
 class AddFolder extends Component {
     static contextType = AppContext
@@ -31,7 +32,7 @@ class AddFolder extends Component {
             }
             return res.json()
         })
-        .then(note => {
+        .then(folder => {
             this.context.addFolder(folder)
             this.props.history.push('/')
         })
@@ -55,6 +56,7 @@ class AddFolder extends Component {
                             value={this.state.folder}
                             onChange={this.handleChange}
                             />
+                        
                         <button
                             type="submit"
                         >Add Folder</button> 
@@ -68,3 +70,7 @@ class AddFolder extends Component {
 }
 
 export default AddFolder
+
+AddFolder.propTypes = {
+    history: PropTypes.object.isRequired
+}

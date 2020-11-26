@@ -6,7 +6,7 @@ import { countNotesForFolder } from '../notes-helpers'
 import './NoteListNav.css'
 import AppContext from '../AppContext'
 
-export default function NoteListNav(props) {
+export default function NoteListNav() {
   const context = useContext(AppContext)
   return (
     <div className='NoteListNav'>
@@ -41,6 +41,3 @@ export default function NoteListNav(props) {
   )
 }
 
-NoteListNav.defaultProps = {
-  folders: []
-}

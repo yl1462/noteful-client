@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import AppContext from '../src/AppContext'
+import PropTypes from 'prop-types'
 
 class AddNote extends Component {
     static contextType = AppContext
 
     state = {
         title: '',
-        note: ''
+        name: '',
+        content: '',
+        folderId: '',
     }
 
     handleChange = (e) => {
-        this.setState({note:e.target.value})
+        this.setState({[e.target.name]:e.target.value})
     }
 
     handleSubmit = (e) => {
@@ -20,7 +23,12 @@ class AddNote extends Component {
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify({name:this.state.note})
+            body:JSON.stringify({
+                name:this.state.name,
+                content: this.state.content,
+                folderId: this.state.folderId,
+                modified: new Date().toISOString()
+            })
         })
         .then(res => {
             if (!res.ok) {
@@ -51,10 +59,33 @@ class AddNote extends Component {
                         <input 
                             type="text"
                             placeholder="Note Title"
-                            value={this.state.note}
+                            name='name'
+                            value={this.state.name}
                             onChange={this.handleChange}
                             required
-                            />
+                            /><br />
+                        <label style={{color: 'white'}}>Note Content</label><br />
+                        <input 
+                            type="text"
+                            placeholder="Note Content"
+                            name='content'
+                            value={this.state.content}
+                            onChange={this.handleChange}
+                            required
+                        /><br />
+                        <label style={{color: 'white'}}>Folder</label><br />
+                        <select 
+                            value={this.state.folderId}
+                            name='folderId'
+                            onChange={this.handleChange}
+                            required>
+                                <option value=''>Select Folder</option>
+                            {
+                                this.context.folders.map(folder => (
+                                <option value={folder.id} key={folder.id}>{folder.name}</option>
+                                ))
+                            }
+                        </select><br /><br /><br />
                         <button
                             type="submit">Add Note</button>
                     </div>
@@ -65,3 +96,7 @@ class AddNote extends Component {
 }
 
 export default AddNote
+
+AddNote.propTypes = {
+    history: PropTypes.object.isRequired
+}
