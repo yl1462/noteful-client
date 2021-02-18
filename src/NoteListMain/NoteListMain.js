@@ -14,7 +14,7 @@ export default function NoteListMain(props) {
   const {folderId} = props.match.params
   const notes = getNotesForFolder(context.notes, folderId)
   const goHome = () => {
-    props.history.push('/folder/' + folderId)
+    props.history.push('/')
   }
   return (
     <section className='NoteListMain'>

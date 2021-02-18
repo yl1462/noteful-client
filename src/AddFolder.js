@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AppContext from '../src/AppContext'
 import PropTypes from 'prop-types'
+import config from './config'
 
 class AddFolder extends Component {
     static contextType = AppContext
@@ -16,7 +17,7 @@ class AddFolder extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:9090/folders', {
+        fetch(`${config.API_ENDPOINT}/folders`, {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

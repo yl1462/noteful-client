@@ -9,11 +9,12 @@ export default function NotePageMain(props) {
   const context = useContext(AppContext)
   const {noteId} = props.match.params
   const note = findNote(context.notes, noteId)
+  console.log(note)
   const goHome = () => {
-    props.history.push('/folder/' + note.folderId)
+    props.history.push('/')
   }
   return (
-    <section className='NotePageMain'>
+    note ? <section className='NotePageMain'>
       <Note
         id={note.id}
         name={note.name}
@@ -26,6 +27,7 @@ export default function NotePageMain(props) {
         )}
       </div>
     </section>
+    : null
   )
 }
 

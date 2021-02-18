@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AppContext from '../src/AppContext'
 import PropTypes from 'prop-types'
+import config from './config'
 
 class AddNote extends Component {
     static contextType = AppContext
@@ -18,7 +19,7 @@ class AddNote extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:9090/notes', {
+        fetch(`${config.API_ENDPOINT}/notes`, {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -26,7 +27,7 @@ class AddNote extends Component {
             body:JSON.stringify({
                 name:this.state.name,
                 content: this.state.content,
-                folderId: this.state.folderId,
+                folder_id: this.state.folderId,
                 modified: new Date().toISOString()
             })
         })

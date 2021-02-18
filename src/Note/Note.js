@@ -5,12 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
 import AppContext from '../AppContext'
 import PropTypes from 'prop-types'
+import config from '../config'
 
 export default function Note(props) {
   const context = useContext(AppContext)
   const handleClick = (id) => {
-    context.deleteNote(id)
-    props.goHome()
+    fetch(`${config.API_ENDPOINT}/notes/${id}`, {
+      method: "DELETE"
+    })
+    .then(() => {
+      context.deleteNote(id)
+      props.goHome()
+    })
   }
   return (
     <div className='Note'>
@@ -41,7 +47,7 @@ export default function Note(props) {
 
 Note.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   modified: PropTypes.string.isRequired,
   goHome: PropTypes.func.isRequired
 }
