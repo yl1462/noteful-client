@@ -10,10 +10,10 @@ describe(`NotePageNav component`, () => {
     }
   }
 
-  it('renders a .NotePageNav by default', () => {
-    const wrapper = shallow(<NotePageNav />)
-    expect(toJson(wrapper)).toMatchSnapshot()
-  })
+  // it('renders a .NotePageNav by default', () => {
+  //   const wrapper = shallow(<NotePageNav />)
+  //   expect(toJson(wrapper)).toMatchSnapshot()
+  // })
 
   it('renders a h3 with folder name when in props', () => {
     const h3 = shallow(<NotePageNav {...props} />)
